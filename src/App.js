@@ -3,6 +3,7 @@ import './App.css';
 import React, {Component} from 'react';
 import Car from './ComponentOne/Car';
 import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import Counter from './Counter/Counter';
 
 class App extends Component {
   constructor (props) {
@@ -68,6 +69,7 @@ class App extends Component {
       cars = this.state.cars.map((car, index) => {
         return (
           <ErrorBoundary key={index}>
+            <Counter />
             <Car 
               name={car.name} year={car.year}
               onChangeCarTitle={() => this.changeHandler(`Name: ${car.name} / Year: ${car.year}`)}
