@@ -59,6 +59,7 @@ class App extends Component {
   }
 
   render() {
+    
     console.log(4)
     // const cars = this.state.cars
     const title = this.state.pageTitle
@@ -69,7 +70,6 @@ class App extends Component {
       cars = this.state.cars.map((car, index) => {
         return (
           <ErrorBoundary key={index}>
-            <Counter />
             <Car 
               name={car.name} year={car.year}
               onChangeCarTitle={() => this.changeHandler(`Name: ${car.name} / Year: ${car.year}`)}
@@ -83,6 +83,7 @@ class App extends Component {
     
     return (
       <div>
+        <Counter />
         <h1>{title}</h1>
         <h2>{this.props.title}</h2>
         <input type="text" onChange={this.inputHandle} />
