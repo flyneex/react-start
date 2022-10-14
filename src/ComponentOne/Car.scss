@@ -1,0 +1,36 @@
+@import '_bgcolor';
+
+$green: green;
+$red: red;
+
+
+@mixin smth($height) {
+    height: $height
+}
+
+.templateCar {
+    width: 400px;
+    @include smth(100px);
+    border: 1px solid #111;
+    margin: 10px + 10px;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 2px 2px 10px rgba(36, 36, 36, .5);
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.input:focus {
+    outline: 0;
+}
+.input-sucsess {
+    border: 2px solid $green
+}
+.input-danger {
+    border: 2px solid $red
+}
+.input-bold-red {
+    font-weight: 900;
+    color: #ff0000;
+}
