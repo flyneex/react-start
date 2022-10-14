@@ -2,6 +2,7 @@
 import './App.css';
 import React, {Component} from 'react';
 import Car from './ComponentOne/Car';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
   constructor (props) {
@@ -66,13 +67,14 @@ class App extends Component {
     if (this.state.showCars) {
       cars = this.state.cars.map((car, index) => {
         return (
-          <Car 
-            key={index} 
-            name={car.name} year={car.year}
-            onChangeCarTitle={() => this.changeHandler(`Name: ${car.name} / Year: ${car.year}`)}
-            changeNameCar={e => this.changeNameCar(e.target.value, index)}
-            deleteCarItem={this.deleteCarItem.bind(this, index)}
-          />
+          <ErrorBoundary key={index}>
+            <Car 
+              name={car.name} year={car.year}
+              onChangeCarTitle={() => this.changeHandler(`Name: ${car.name} / Year: ${car.year}`)}
+              changeNameCar={e => this.changeNameCar(e.target.value, index)}
+              deleteCarItem={this.deleteCarItem.bind(this, index)}
+            />
+          </ErrorBoundary>
         )
       })
     }

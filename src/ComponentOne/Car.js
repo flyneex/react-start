@@ -4,6 +4,11 @@ import React from 'react';
 
 class Car extends React.Component {
     render() {
+
+        if (Math.random() > .7) {
+            throw new Error('Car random failed')
+        }
+
         const classInput = ['input']
 
         if (this.props.name !== '') {
