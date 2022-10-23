@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import Aux from '../hoc/Auxiliary';
+import Counter2 from '../Counter2/Counter2';
 
 class Counter extends Component {
     constructor(props) {
@@ -9,9 +11,14 @@ class Counter extends Component {
     }
 
     countInc = () => {
-        this.setState({
-            counter: this.state.counter + 1
+        this.setState((prevState) => {
+            return {
+                counter: prevState.counter + 1
+            }
         })
+        // this.setState({
+        //     counter: this.state.counter + 1
+        // })
     }
 
     countDec = () => {
@@ -22,11 +29,12 @@ class Counter extends Component {
     
     render() {
         return (
-            <div>
+            <Aux>
                 <h1>Counter: {this.state.counter}</h1>
+                <Counter2 />
                 <button onClick={this.countInc}>+</button>
                 <button onClick={this.countDec}>-</button>
-            </div>
+            </Aux>
         )
     }
 }

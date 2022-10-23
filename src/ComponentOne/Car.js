@@ -1,13 +1,26 @@
 import './Car.scss';
-import Radium from 'radium'
+// import Radium from 'radium'
+import propTypes from 'prop-types';
 import React from 'react';
+import withClass from '../hoc/withClass';
 
 class Car extends React.Component {
+    constructor(props) {
+        super(props)
+            this.inputRef = React.createRef()
+}
+
+    componentDidMount() {
+        if(this.props.index === 2) {
+          this.inputRef.current.focus()
+        }
+      }
+
     render() {
 
-        if (Math.random() > .7) {
-            throw new Error('Car random failed')
-        }
+        // if (Math.random() > .7) {
+        //     throw new Error('Car random failed')
+        // }
 
         const classInput = ['input']
 
@@ -21,25 +34,35 @@ class Car extends React.Component {
             classInput.push('input-bold-red')
         }
 
-        const style = {
-            ":hover": {
-                boxShadow: "2px 2px 10px rgba(168, 20, 0)",
-                background: "blue",
-                borderRadius: '2px solid yellow'
-            }
-        }
+        // const style = {
+        //     ":hover": {
+        //         boxShadow: "2px 2px 10px rgba(168, 20, 0)",
+        //         background: "blue",
+        //         borderRadius: '2px solid yellow'
+        //     }
+        // }
 
         return (
-            <div className="templateCar" style={style}>
+            // <div className="templateCar" style={style}>
+            <>
                 <div>Car: {this.props.name}</div>
                 <strong>Year: {this.props.year}</strong>
                 <button onClick={this.props.onChangeCarTitle}>Click this btn</button>
-                <input className={classInput.join(' ')} type="text" onChange={this.props.changeNameCar} value={this.props.name} />
+                <input ref={this.inputRef} className={classInput.join(' ')} type="text" onChange={this.props.changeNameCar} value={this.props.name} />
                 <button onClick={this.props.deleteCarItem}>Delete car</button>
                 {this.props.children}
-            </div>
+            </>
+            // </div>
         )
     }
+}
+
+Car.propTypes = {
+ name: propTypes.string.isRequired,
+ year: propTypes.number,
+ index: propTypes.number,
+ onChangeCarTitle: propTypes.func,
+ deleteCarItem: propTypes.func
 }
 
 // import classes from './Car.module.scss';
@@ -67,4 +90,5 @@ class Car extends React.Component {
 //     </div>
 // )
 
-export default Radium(Car)
+// export default Radium(Car)
+export default withClass(Car, 'templateCar')

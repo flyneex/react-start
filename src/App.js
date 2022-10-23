@@ -5,18 +5,21 @@ import Car from './ComponentOne/Car';
 import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 import Counter from './Counter/Counter';
 
+export const ClickedContext = React.createContext(false)
+
 class App extends Component {
   constructor (props) {
-    console.log(1);
+    // console.log(1);
     super (props)
       this.state = {
         cars: [
-          {name: 'Ford Super', year: '2030'},
-          {name: 'Mazda Next', year: '2035'},
-          {name: 'Toyota Supra', year: '2038'},
+          {name: 'Ford Super', year: 2030},
+          {name: 'Mazda Next', year: 2035},
+          {name: 'Toyota Supra', year: 2038},
         ],
         pageTitle: 'React Cars',
-        showCars: true
+        showCars: true,
+        // clicked: false
     }
   }
 
@@ -36,13 +39,13 @@ class App extends Component {
     })
   }
 
-  componentWillMount() {
-    console.log(2)
-  }
+  // componentWillMount() {
+  //   console.log(2)
+  // }
 
-  componentDidMount() {
-    console.log(3)
-  }
+  // componentDidMount() {
+  //   console.log(3)
+  // }
 
   changeNameCar(name, index) {
     const car = this.state.cars[index]
@@ -60,7 +63,7 @@ class App extends Component {
 
   render() {
     
-    console.log(4)
+    // console.log(4)
     // const cars = this.state.cars
     const title = this.state.pageTitle
 
@@ -71,7 +74,7 @@ class App extends Component {
         return (
           <ErrorBoundary key={index}>
             <Car 
-              name={car.name} year={car.year}
+              name={car.name} year={car.year} index={index}
               onChangeCarTitle={() => this.changeHandler(`Name: ${car.name} / Year: ${car.year}`)}
               changeNameCar={e => this.changeNameCar(e.target.value, index)}
               deleteCarItem={this.deleteCarItem.bind(this, index)}
@@ -83,13 +86,15 @@ class App extends Component {
     
     return (
       <div>
-        <Counter />
+        <ClickedContext.Provider value={this.state.clicked}>
+          <Counter />
+        </ClickedContext.Provider>
         <h1>{title}</h1>
         <h2>{this.props.title}</h2>
         <input type="text" onChange={this.inputHandle} />
         <button onClick={this.changeHandler.bind(this, 'I got changed!')}>Click me</button>
         <button onClick={this.showHandler}>Click for Show</button>
-        
+        <button onClick={() => this.setState({clicked:true})}>Click for changing</button>
         {cars}
 
         {/* <Car name={cars[0].name} year={cars[0].year} onChangeCarTitle={this.changeHandler.bind(this, cars[0].name)} />
